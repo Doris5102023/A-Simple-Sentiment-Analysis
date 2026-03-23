@@ -1,5 +1,5 @@
 # 🎬 A-Simple-Sentiment-Analysis 🥰
-Cute & easy code for movie reviews sentiment analysis! This repo uses **TextCNN** and **TextLSTM** (two super cute neural networks 🧠) to do binary sentiment classification (positive 😊/negative 😞) on the IMDB movie review dataset. We've got full pipelines for data preprocessing, model training, evaluation, visualization, and inference—all wrapped in a fluffy blanket of cuteness 🧶!
+Easy code for movie reviews sentiment analysis! This repo uses **TextCNN** and **TextLSTM** (two super neural networks 🧠) to do binary sentiment classification (positive 😊/negative 😞) on the IMDB movie review dataset. We've got full pipelines for data preprocessing, model training, evaluation, visualization, and inference—all wrapped in a fluffy blanket of cuteness 🧶!
 
 ---
 
@@ -41,7 +41,7 @@ python train.py
 - 🎯 We train **TextCNN** and **TextLSTM** for 10 rounds (epochs)
 - 📦 Feed the bear 64 reviews at a time (batch size=64) with the Adam optimizer (its favorite trainer 🏋️)
 - 🏆 Save the best model weights (based on validation loss) as `TextCNN_best.pt`/`TextLSTM_best.pt` (golden medals 🥇 for the bear!)
-- 📊 Generate super cute plots:
+- 📊 Generate super plots:
   - Word frequency (which words are most common in positive/negative reviews 📝)
   - Text length distribution (how long are most reviews? 📏)
   - Training curves (see the bear's accuracy go up! 📈)
@@ -59,7 +59,7 @@ python predict.py
 
 ---
 
-## 📊 Visualization (Cute Plots Galore! 📈)
+## 📊 Visualization (Plots Galore! 📈)
 We've got tons of fluffy visualizations to show off the AI bear's skills:
 1. **Word Frequency Cloud** ☁️: Colorful clouds of words (red=negative 😡, green=positive 🥰)
 2. **Text Length Histogram** 📊: How long are IMDB reviews? (most are 100-500 words!)
