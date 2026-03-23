@@ -1,94 +1,92 @@
-# 🎬 A-Simple-Sentiment-Analysis 🥰
-Easy code for movie reviews sentiment analysis! This repo uses **TextCNN** and **TextLSTM** (two super neural networks 🧠) to do binary sentiment classification (positive 😊/negative 😞) on the IMDB movie review dataset. We've got full pipelines for data preprocessing, model training, evaluation, visualization, and inference—all wrapped in a fluffy blanket of cuteness 🧶!
+# 🎬 A-Simple-Sentiment-Analysis
+This repository implements binary sentiment classification (positive/negative) on the IMDB movie review dataset using **TextCNN** and **TextLSTM** neural networks. It provides end-to-end pipelines for data preprocessing, model training, evaluation, visualization, and inference, designed for reproducible and educational purposes.
 
 ---
 
-## ✨ What's in This Repo?
-Imagine teaching a little AI bear 🐻 to read movie reviews and tell if people loved them (👍) or hated them (👎)—that's exactly what we're doing here!  
-We use two tiny but powerful models:
-- **TextCNN** 🧇: Like a cookie cutter that picks out "tasty" keywords (e.g., "amazing", "terrible") from reviews
-- **TextLSTM** 🌀: Like a storybook reader that remembers the flow of words (e.g., "not good" ≠ "good"!)
+## ✨ Overview
+This project focuses on building and evaluating neural network models for movie review sentiment analysis. Two classic deep learning architectures are implemented and compared:
+- **TextCNN** 🧇: Convolutional neural network tailored for text data, effective at capturing local semantic features (e.g., emotion-laden keywords).
+- **TextLSTM** 🌀: Long Short-Term Memory network, specialized in modeling sequential dependencies and contextual information in text.
 
 ---
 
-## 🚀 Quick Start (Let's Play with the AI Bear! 🐾)
-### 1. 🍪 Environment Setup (Feed the AI Bear Snacks!)
-First, install all the "snacks" (dependencies) the AI bear needs to work:
+## 🚀 Quick Start
+### 1. 🍪 Environment Setup
+Install the required dependencies to run the code:
 ```bash
 pip install torch nltk scikit-learn matplotlib seaborn
 ```
-> 💡 Pro Tip: If the bear is picky (installation errors), use `pip install --upgrade [package name]` to give it fresh snacks!
+> 💡 Note: For installation issues, upgrade the relevant package with `pip install --upgrade [package name]` to ensure compatibility.
 
-### 2. 🧹 Data Preprocessing (Clean Up the Movie Reviews!)
-The raw IMDB dataset is downloaded automatically—we just need to "tidy up" the reviews like folding tiny clothes 👕:
+### 2. 🧹 Data Preprocessing
+The raw IMDB dataset is automatically downloaded and processed through the following standardized steps:
 
-| Step | Cute Explanation | What We Actually Do |
-|------|------------------|---------------------|
-| 🧽 Text Cleaning | Scrub off yucky non-alphabet characters (like `!@#$%`) and make all words lowercase (e.g., "Amazing" → "amazing") | Remove non-a-z chars, lowercase text |
-| ✂️ Tokenization | Cut reviews into tiny word pieces (e.g., "I love this movie" → ["I", "love", "this", "movie"]) | Split text with NLTK tokenizer |
-| 🗑️ Stopword Removal | Throw away boring words that mean nothing (e.g., "the", "is", "a")—like picking out crumbs from a cookie 🍪 | Filter stopwords (e.g., "the", "and") |
-| 🔨 Stemming | Make words wear the same "uniform" (e.g., "fantastic" → "fantast", "running" → "run") | Unify word forms with Porter Stemmer |
-| 📚 Vocabulary Construction | Build a tiny dictionary (25,000 words!) for the AI bear to learn—add special tokens `<PAD>` (blank space 📝) and `<UNK>` (unknown word ❓) | Create 25k vocab from training set, save as `vocab.txt` |
-| 📏 Sequence Normalization | Cut long reviews short and pad short reviews (all to 500 words!)—like cutting cake into equal slices 🎂 | Truncate/pad sequences to 500 tokens |
+| Step | Description | Implementation Details |
+|------|-------------|------------------------|
+| 🧽 Text Cleaning | Remove non-alphabetic characters and normalize text to lowercase to reduce noise | Filter out non-a-z characters; convert all text to lowercase |
+| ✂️ Tokenization | Split text into discrete word tokens for model input | Tokenize text using NLTK's word tokenizer |
+| 🗑️ Stopword Removal | Eliminate low-information stopwords to focus on semantically meaningful terms | Filter out stopwords (e.g., "the", "is", "a") from the NLTK stopword list |
+| 🔨 Stemming | Unify word forms to reduce vocabulary size and improve generalization | Apply Porter Stemmer to standardize word morphology (e.g., "fantastic" → "fantast") |
+| 📚 Vocabulary Construction | Build a fixed-size vocabulary from the training set to map words to indices | Create a 25,000-word vocabulary with `<PAD>` (padding) and `<UNK>` (unknown token) ; save as `vocab.txt` |
+| 📏 Sequence Normalization | Standardize input sequence length for consistent model input | Truncate/pad all text sequences to a fixed length of 500 tokens |
 
-### 3. 🏋️ Model Training (Train the AI Bear!)
-Run the training script to teach the AI bear to read reviews—watch it get smarter every epoch! 📈
+### 3. 🏋️ Model Training
+Execute the training script to train and validate the TextCNN and TextLSTM models:
 ```bash
-# Just run the training script (we've set all the cute hyperparameters for you!)
 python train.py
 ```
-#### What Happens During Training?
-- 🎯 We train **TextCNN** and **TextLSTM** for 10 rounds (epochs)
-- 📦 Feed the bear 64 reviews at a time (batch size=64) with the Adam optimizer (its favorite trainer 🏋️)
-- 🏆 Save the best model weights (based on validation loss) as `TextCNN_best.pt`/`TextLSTM_best.pt` (golden medals 🥇 for the bear!)
-- 📊 Generate super plots:
-  - Word frequency (which words are most common in positive/negative reviews 📝)
-  - Text length distribution (how long are most reviews? 📏)
-  - Training curves (see the bear's accuracy go up! 📈)
+#### Training Details:
+- 🎯 Train TextCNN and TextLSTM for 10 epochs with a batch size of 64
+- 📦 Optimize model parameters using the Adam optimizer
+- 🏆 Save the best model weights (based on validation loss) as `TextCNN_best.pt`/`TextLSTM_best.pt`
+- 📊 Generate quantitative and qualitative visualization results:
+  - Word frequency distribution (key terms in positive/negative reviews)
+  - Text length distribution of the IMDB dataset
+  - Training curves (loss and accuracy over epochs)
 
-### 4. 🎯 Inference (Let the AI Bear Guess Sentiment!)
-Now the AI bear is trained—let it read new reviews and tell you if they're positive/negative! 🐻
+### 4. 🎯 Inference
+Use the trained models to predict sentiment for new movie reviews:
 ```bash
 python predict.py
 ```
-#### What You Can Do:
-- 📖 Load the saved `vocab.txt` (the bear's dictionary) and model weights (its trained brain 🧠)
-- 🗣️ Predict sentiment for **single reviews** (e.g., "This movie was so cute and heartwarming! 🥹")
-- 📥 Predict sentiment for **batch reviews** (feed the bear a bunch of reviews at once!)
-- 📊 Get confidence scores (how sure the bear is—e.g., 98% positive 😊)
+#### Inference Capabilities:
+- 📖 Load pre-saved `vocab.txt` and model weights for inference
+- 🗣️ Predict sentiment (Positive/Negative) for single movie reviews
+- 📥 Batch inference for multiple reviews
+- 📊 Output confidence scores for each prediction (reflecting model certainty)
 
 ---
 
-## 📊 Visualization (Plots Galore! 📈)
-We've got tons of fluffy visualizations to show off the AI bear's skills:
-1. **Word Frequency Cloud** ☁️: Colorful clouds of words (red=negative 😡, green=positive 🥰)
-2. **Text Length Histogram** 📊: How long are IMDB reviews? (most are 100-500 words!)
-3. **Training Loss/Accuracy Curves** 📈: Watch the bear get better at guessing—loss goes down, accuracy goes up!
-4. **Confusion Matrix** 🧮: See how many reviews the bear guessed right/wrong (we promise it's better than a human! 🧑‍🦰→🐻)
+## 📊 Visualization
+Comprehensive visualization is provided to analyze data characteristics and model performance:
+1. **Word Frequency Cloud** ☁️: Visualize the most frequent words in positive/negative reviews (red = negative, green = positive)
+2. **Text Length Histogram** 📊: Distribution of review lengths in the IMDB dataset (majority range: 100–500 tokens)
+3. **Training Loss/Accuracy Curves** 📈: Track model convergence over training epochs (decreasing loss, increasing accuracy)
+4. **Confusion Matrix** 🧮: Evaluate classification performance by quantifying true/false positives/negatives
 
 ---
 
-## 🐾 Example Outputs (What the Bear Says!)
+## 🐾 Example Outputs
 ### Input Review:
-> "This movie made me cry happy tears 🥹—the characters were so lovable and the plot was perfect! I watched it 3 times!"
+> "This movie made me cry happy tears—the characters were so lovable and the plot was perfect! I watched it 3 times!"
 
 ### Output:
 > Sentiment: Positive 😊 | Confidence: 99.2%
 
 ### Input Review:
-> "Worst movie ever 🤢—the acting was terrible and the plot made no sense. I left the theater early!"
+> "Worst movie ever—the acting was terrible and the plot made no sense. I left the theater early!"
 
 ### Output:
 > Sentiment: Negative 😞 | Confidence: 98.7%
 
 ---
 
-## 🎨 Fun Facts About the Models
-- 🧇 **TextCNN**: Great at picking out "key emotions" (e.g., "amazing", "horrible")—like a bear sniffing out honey 🍯
-- 🌀 **TextLSTM**: Great at understanding context (e.g., "not good" = bad, "not bad" = good)—like a bear reading a storybook 📖
-- 🐻 Both models are tiny (perfect for beginners!) but get ~85% accuracy on IMDB—way better than guessing!
+## 🎨 Model Characteristics
+- 🧇 **TextCNN**: Excels at extracting local n-gram features and key emotional keywords, with fast training and inference speed.
+- 🌀 **TextLSTM**: Superior at capturing long-range contextual dependencies (e.g., negation: "not good" ≠ "good"), with stronger sequential understanding.
+- 📊 Both models achieve approximately 85% classification accuracy on the IMDB dataset, demonstrating strong performance for beginner-friendly implementations.
 
 ---
 
 ## ✨ License
-This code is as free as a bear playing in the forest 🌳—use it for learning, homework, or just for fun!
+This code is released for educational and academic use, suitable for coursework, self-learning, and research purposes.
